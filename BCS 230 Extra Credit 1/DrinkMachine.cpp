@@ -52,6 +52,7 @@ void DrinkMachine::buyDrink(int choice) {
 				moneyCollected += inventory[choice - 1].price;
 				moneyInserted -= inventory[choice - 1].price;
 				cout << "Your change is $" << moneyInserted << endl;
+				moneyInserted = 0;
 			}
 			else {
 				cout << inventory[choice - 1].name << " is out of stock. Money returned.\n";
@@ -61,6 +62,9 @@ void DrinkMachine::buyDrink(int choice) {
 		else {
 			cout << "Purchase cancelled. Money returned.\n";
 			moneyInserted = 0;
+			// in case the user entered a char or string, clear the input buffer
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
 	}
 	else {
