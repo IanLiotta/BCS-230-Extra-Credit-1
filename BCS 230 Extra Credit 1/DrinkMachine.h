@@ -14,14 +14,15 @@ private:
 		double price;
 		int stock;
 	};
-	double moneyCollected;
-	double moneyInserted;
+	double moneyCollected = 0.0;
+	double moneyInserted = 0.0;
 	Drink inventory[5];
 
 	double inputMoney(int choice);
 	void dailyReport();
 public:
 	DrinkMachine();
+	~DrinkMachine();
 	void displayChoices();
 	void buyDrink(int choice);
 };

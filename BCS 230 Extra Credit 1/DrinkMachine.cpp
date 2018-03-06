@@ -23,15 +23,31 @@ DrinkMachine::DrinkMachine() {
 	inventory[4].stock = 20;
 }
 
+DrinkMachine::~DrinkMachine()
+{
+	dailyReport();
+}
+
 void DrinkMachine::displayChoices() {
+	int i = 1;
 	cout << setprecision(2) << fixed;
-	cout << setw(15) << "Name"<< setw(10) << "Price" << setw(10) << "In Stock" << endl;
+	cout << "  " << setw(15) << "Name"<< setw(10) << "Price" << setw(10) << "In Stock" << endl;
 	cout << string(40, '*') << endl;
 	for (Drink drnk : inventory) {
-		cout << setw(15) << drnk.name << setw(10) << drnk.price << setw(10) << drnk.stock << "\n";
+		cout << i << ":" << setw(15) << drnk.name << setw(10) << drnk.price << setw(10) << drnk.stock << "\n";
+		i++;
 	}
 }
 
-void DrinkMachine::dailyReport() {
-
+void DrinkMachine::buyDrink(int choice) {
+	cout << "Here is your " << inventory[choice - 1].name << endl;
+	inventory[choice - 1].stock--;
+	moneyCollected += inventory[choice - 1].price;
 }
+
+void DrinkMachine::dailyReport() {
+	cout << "Daily Report: \n";
+	displayChoices();
+	cout << "Total money collected: $" << moneyCollected << endl;
+}
+
