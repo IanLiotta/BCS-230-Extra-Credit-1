@@ -40,12 +40,45 @@ void DrinkMachine::displayChoices() {
 }
 
 void DrinkMachine::buyDrink(int choice) {
-	cout << "Here is your " << inventory[choice - 1].name << endl;
-	inventory[choice - 1].stock--;
-	moneyCollected += inventory[choice - 1].price;
+	int input;
+	inputMoney(choice);
+	if (moneyInserted >= inventory[choice - 1].price) {
+		cout << "$" << moneyInserted << " inserted. Continue with purchase?\n1. Yes\n2. No\n";
+		cin >> input;
+		if (input == 1) {
+			if (inventory[choice - 1].stock > 0) {
+				cout << "Here is your " << inventory[choice - 1].name << endl;
+				inventory[choice - 1].stock--;
+				moneyCollected += inventory[choice - 1].price;
+				moneyInserted -= inventory[choice - 1].price;
+				cout << "Your change is $" << moneyInserted << endl;
+			}
+			else {
+				cout << inventory[choice - 1].name << " is out of stock. Money returned.\n";
+				moneyInserted = 0;
+			}
+		}
+		else {
+			cout << "Purchase cancelled. Money returned.\n";
+			moneyInserted = 0;
+		}
+	}
+	else {
+		cout << "Not enough money inserted. Money returned.\n";
+		moneyInserted = 0;
+	}
+}
+
+void DrinkMachine::inputMoney(int choice) {
+	double input;
+	cout << fixed << setprecision(2);
+	cout << inventory[choice - 1].name << " costs $" << inventory[choice - 1].price << ". Insert money: \n";
+	cin >> input;
+	moneyInserted += input;
 }
 
 void DrinkMachine::dailyReport() {
+	system("CLS");
 	cout << "Daily Report: \n";
 	displayChoices();
 	cout << "Total money collected: $" << moneyCollected << endl;

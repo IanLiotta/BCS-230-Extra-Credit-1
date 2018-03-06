@@ -18,7 +18,7 @@ private:
 	double moneyInserted = 0.0;
 	Drink inventory[5];
 
-	double inputMoney(int choice);
+	void inputMoney(int choice);
 	void dailyReport();
 public:
 	DrinkMachine();
